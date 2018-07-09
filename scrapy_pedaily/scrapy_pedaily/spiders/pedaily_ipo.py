@@ -4,7 +4,8 @@ import re
 import time
 import random
 import hashlib
-from pedailyprj.items import PedailyIpoScrapyItem
+from scrapy_pedaily.items import PedailyIpoScrapyItem
+import math
 
 # 上市事件
 class PedailyIpoSpider(scrapy.Spider):
@@ -13,55 +14,25 @@ class PedailyIpoSpider(scrapy.Spider):
     name = 'pedaily_ipo'
     allowed_domains = ['pedaily.cn']
     start_urls = ['http://zdb.pedaily.cn/ipo/']
-    category_index = {'ipo': '2'}
-    category_desc = {'ipo': '上市事件'}
-    url_descs = ['上市事件']
-    industry_classification = {'h5537': '互联网',
-                               # 'h4823': '移动互联网', 'h690': 'IT', 'h4973': '房地产',
-                               # 'h5044': '汽车', 'h119': '连锁及零售', 'h1154': '能源及矿产', 'h1381': '广播电视',
-                               # 'h2164': '娱乐传媒', 'h2359': '物流', 'h2869': '教育与培训', 'h2947': '清洁技术',
-                               # 'h3052': '农林牧渔', 'h3362': '金融', 'h3456': '食品&饮料', 'h3601': '半导体',
-                               # 'h3622': '医疗健康', 'h4023': '机械制造', 'h4238': '化工原料', 'h4971': '建筑工程',
-                               # 'h5643': '纺织及服装', 'h5851': '光电设备', 'h2861': '其他'
-                               }
-    industry_classification_url = ['h5537',
-                                   # 'h4823', 'h690', 'h4973',
-                                   # 'h5044', 'h119', 'h1154', 'h1381',
-                                   # 'h2164', 'h2359', 'h2869', 'h2947',
-                                   # 'h3052', 'h3362', 'h3456', 'h3601',
-                                   # 'h3622', 'h4023', 'h4238', 'h4971',
-                                   # 'h5643', 'h5851', 'h2861'
-                                   ]
     base_url = 'http://zdb.pedaily.cn'
 
     def parse(self, response):
         print("**********", response.url)
         if response.status == 200:
-            id_prefix = ''
-            cate = ''
-            industry_cate = ''
             if response.url in self.start_urls:
-                cate_index = self.start_urls.index(response.url)
-                id_prefix = str(self.index) + '-' + str(self.module_index)
-                cate = self.url_descs[cate_index]
-                for part_url in self.industry_classification_url:
-                    url = response.url + part_url
-                    industry_cate = self.industry_classification.get(part_url)
-                    yield scrapy.Request(url, meta={'id_prefix': id_prefix, 'category': cate,
-                                                    'industry_cate': industry_cate}, callback=self.parse)
+                total_page_desc = response.css('span.title > span.total::text').extract_first()
+                if total_page_desc.isdigit():
+                    total_page = math.floor(int(total_page_desc) / 20) + int(math.fmod(int(total_page_desc), 20))
+                    for pageNum in range(1, total_page + 1):
+                    # for pageNum in range(1, 2):
+                        url = response.url + 'p' + str(pageNum)
+                        yield scrapy.Request(url, callback=self.parse)
+                        # time.sleep(random.randint(1, 6))
+                else:
+                    self.logger.warning("has no next page!!!")
             else:
-                id_prefix = response.meta['id_prefix']
-                cate = response.meta['category']
-                industry_cate = response.meta['industry_cate']
-                # next_page_link = response.css('div.page-list.page > a.next')
-                next_page_link = response.css('div.page-list.page').xpath('//a[contains(.,"下一页")]')
-                if next_page_link:
-                    url = self.base_url + next_page_link.css('::attr("href")').extract_first()
-                    print("#%%%%%%%%%", response.css('div.page-list.page > a.next').extract())
-                    yield scrapy.Request(url, meta={'id_prefix': id_prefix, 'category': cate,
-                                                    'industry_cate': industry_cate}, callback=self.parse)
-                    time.sleep(3)
-
+                id_prefix = '8-2'
+                cate = '上市事件'
                 info_list = response.css('div.box-news-list ul#ipo-list > li[class!="head"]')
                 dr = re.compile(r'<[^>]+>', re.S)
                 for info in info_list:
@@ -86,7 +57,6 @@ class PedailyIpoSpider(scrapy.Spider):
 
                     yield scrapy.Request(href, meta={'id_prefix': id_prefix,
                                                      'category': cate,
-                                                     'industry_cate': industry_cate,
                                                      'company': company,
                                                      'industry': industry,
                                                      'money': money,
@@ -108,7 +78,6 @@ class PedailyIpoSpider(scrapy.Spider):
             if title_desc:
                 item['title'] = title_desc.strip()
             item['company'] = response.meta['company']
-            item['industry_cate'] = response.meta['industry_cate']
             item['financing_time'] = response.meta['date']
             item['industry'] = response.meta['industry']
             item['money'] = response.meta['money']

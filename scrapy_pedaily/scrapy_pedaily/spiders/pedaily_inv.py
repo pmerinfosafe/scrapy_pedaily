@@ -99,5 +99,4 @@ class PedailyInvSpider(scrapy.Spider):
                 dd = dr.sub('', ind_desc)
                 item['industry_desc'] = dd.replace(u'所属行业：', '')
             item['short_detail'] = response.css('div#desc > p::text').extract_first()
-            # yield item
-            print(item)
+            yield item
