@@ -155,3 +155,5 @@ class PedailyPeScrapyItem(scrapy.Item):
     # 资本类型
     capital_type = scrapy.Field()
 
+    collection_amount = scrapy.Field()
+

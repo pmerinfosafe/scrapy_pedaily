@@ -28,7 +28,7 @@ class PedailyPeSpider(scrapy.Spider):
                 if total_page_desc.isdigit():
                     total_page = math.floor(int(total_page_desc) / 20) + int(math.fmod(int(total_page_desc), 20))
                     for pageNum in range(1, total_page + 1):
-                    # for pageNum in range(1, 2):
+                        # for pageNum in range(1, 2):
                         url = response.url + 'p' + str(pageNum)
                         print(url)
                         yield scrapy.Request(url, callback=self.parse)
@@ -85,7 +85,7 @@ class PedailyPeSpider(scrapy.Spider):
             # 详情页解析
             infos = response.css('div.info ul> li')
             if infos:
-                # 并购方
+                # 基金名称
                 fund_desc = infos[0].css('li::text').extract_first()
                 if fund_desc:
                     item['fund_full_name'] = fund_desc.strip()
@@ -99,32 +99,49 @@ class PedailyPeSpider(scrapy.Spider):
                 currency_desc = infos[1].css('li::text').extract_first()
                 if currency_desc:
                     item['currency'] = currency_desc.strip()
+                else:
+                    item['currency'] = ''
                 # 创立时间
                 setup_time_desc = infos[2].css('li::text').extract_first()
                 if setup_time_desc:
                     item['setup_time'] = setup_time_desc.strip()
+                else:
+                    item['setup_time'] = ''
                 # 募集状态
                 status_desc = infos[3].css('li::text').extract_first()
                 if status_desc:
                     item['status'] = status_desc.strip()
+                else:
+                    item['status'] = ''
                 # 管理机构
-                man_org_desc = infos[3].css('li::text').extract_first()
+                man_org_desc = infos[4].css('li::text').extract_first()
                 if man_org_desc:
                     item['man_org'] = man_org_desc.strip()
                 else:
-                    man_org_desc = infos[0].css('li a::text').extract_first()
+                    man_org_desc = infos[4].css('li a::text').extract_first()
                     if man_org_desc:
                         item['man_org'] = man_org_desc.strip()
                     else:
                         item['man_org'] = ''
                 # 目标金额
-                target_mount_desc = infos[4].css('li::text').extract_first()
+                target_mount_desc = infos[5].css('li::text').extract_first()
                 if target_mount_desc:
                     item['target_mount'] = target_mount_desc.strip()
-
-                capital_type_desc = infos[4].css('li::text').extract_first()
+                else:
+                    item['target_mount'] = ''
+                #资本类型
+                capital_type_desc = infos[6].css('li::text').extract_first()
                 if capital_type_desc:
                     item['capital_type'] = capital_type_desc.strip()
+                else:
+                    item['capital_type'] = ''
+                # collection_amount_desc = infos[7].css('li::text').extract_first()
+                # # 募集金额
+                # if collection_amount_desc:
+                #     item['collection_amount'] = collection_amount_desc.strip()
+                # else:
+                #     item['collection_amount'] = ''
+
 
             # print("****************", item)
             yield item
