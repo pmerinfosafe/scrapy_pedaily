@@ -45,11 +45,11 @@ class PedailyCompanySpider(scrapy.Spider):
                 tag = info.css('div.img > a > img::attr("alt")').extract_first()
                 location = info.css('h3 span.location::text').extract_first()
                 cm_desc = info.css('div.desc::text').extract_first()
+                print(page_url)
 
                 yield scrapy.Request(page_url, meta={'id_prefix': id_prefix,
                                                      'category': cate,
                                                      'name': name,
-                                                     'page_url': page_url,
                                                      'icon': icon,
                                                      'tag': tag,
                                                      'location': location,
@@ -63,6 +63,14 @@ class PedailyCompanySpider(scrapy.Spider):
             md5 = hashlib.md5()
             md5.update(response.url.encode(encoding='utf-8'))
             item = PedailyCmScrapyItem()
+            id_prefix = response.meta['id_prefix']
+            item['id'] = id_prefix + "-" + md5.hexdigest()
+            item['name'] = response.meta['name']
+            item['url'] = response.url
+            item['icon'] = response.meta['icon']
+            item['tag'] = response.meta['tag']
+            item['location'] = response.meta['location']
+            item['cm_desc'] = response.meta['cm_desc']
             # 详情页解析
             infos = response.css('div.info ul> li')
             if infos:
@@ -70,7 +78,7 @@ class PedailyCompanySpider(scrapy.Spider):
                 # capital_type = infos[0].css('li::text').extract_first()
                 item['capital_type'] = infos[0].css('li::text').extract_first()
                 # 机构性质
-                item['org_nature']= infos[1].css('li::text').extract_first()
+                item['org_nature'] = infos[1].css('li::text').extract_first()
                 # 注册地址
                 item['reg_place'] = infos[2].css('li::text').extract_first()
                 # 成立时间

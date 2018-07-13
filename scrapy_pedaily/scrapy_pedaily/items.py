@@ -219,7 +219,6 @@ class PedailyCmScrapyItem(scrapy.Item):
     setup_time = scrapy.Field()
     # 机构总部
     headquarters = scrapy.Field()
-
     #官方网站
     office_website = scrapy.Field()
     # 投资阶段
