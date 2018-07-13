@@ -157,3 +157,85 @@ class PedailyPeScrapyItem(scrapy.Item):
 
     collection_amount = scrapy.Field()
 
+# class PedailyPeScrapyItem(scrapy.Item):
+#     # 编号
+#     id = scrapy.Field()
+#     # 标题
+#     title = scrapy.Field()
+#
+#     date = scrapy.Field()
+#
+#     # 基金组织
+#     fund = scrapy.Field()
+#     # 管理机构
+#     group = scrapy.Field()
+#     # 募集资金货币类型
+#     acc_cate = scrapy.Field()
+#     # 募集资金货币数量
+#     acc_num = scrapy.Field()
+#     # 详情路径
+#     url = scrapy.Field()
+#     # 基金全称
+#     fund_full_name = scrapy.Field()
+#     # 币种
+#     currency = scrapy.Field()
+#     # 成立时间
+#     setup_time = scrapy.Field()
+#     # 募集状态
+#     status = scrapy.Field()
+#     # 管理机构
+#     man_org = scrapy.Field()
+#     # 目标货币金额
+#     target_mount = scrapy.Field()
+#     # 资本类型
+#     capital_type = scrapy.Field()
+#
+#     collection_amount = scrapy.Field()
+
+class PedailyCmScrapyItem(scrapy.Item):
+    # 编号
+    id = scrapy.Field()
+    # 名称
+    name = scrapy.Field()
+    # 图标
+    icon = scrapy.Field()
+    # 英文名
+    english_name = scrapy.Field()
+    # 标签
+    tag = scrapy.Field()
+    # 位置
+    location = scrapy.Field()
+    # 公司简述
+    cm_desc = scrapy.Field()
+    # 详情路径
+    url = scrapy.Field()
+    # 资本类型
+    capital_type = scrapy.Field()
+    # 机构性质
+    org_nature = scrapy.Field()
+    # 注册地址
+    reg_place = scrapy.Field()
+    # 成立时间
+    setup_time = scrapy.Field()
+    # 机构总部
+    headquarters = scrapy.Field()
+
+    #官方网站
+    office_website = scrapy.Field()
+    # 投资阶段
+    investment_stage = scrapy.Field()
+    # 简介
+    short_detail = scrapy.Field()
+    # 联系方式
+    contact_info = scrapy.Field()
+    # 募集事件
+    ma_info = scrapy.Field()
+    # 投资事件
+    inv_info = scrapy.Field()
+    # 相关新闻
+    related_news = scrapy.Field()
+
+
+
+
+
