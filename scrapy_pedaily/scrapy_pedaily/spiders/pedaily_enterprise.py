@@ -33,7 +33,7 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                         url = self.comapys_base_url.format(str(pageNum))
                         # print(url)
                         yield scrapy.Request(url, callback=self.parse)
-                        time.sleep(random.randint(1, 6))
+                        time.sleep(random.randint(1, 3))
                 else:
                     self.logger.warning("has no next page!!!")
             print('scan page list')
@@ -55,7 +55,7 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                                                      'location': location,
                                                      'cm_desc': cm_desc},
                                      callback=self.parse_content)
-                time.sleep(random.randint(1, 3))
+                time.sleep(random.randint(1, 6))
 
     def parse_content(self, response):
         if response.status == 200:
