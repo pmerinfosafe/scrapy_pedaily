@@ -44,7 +44,7 @@ class PedailyNewSpider(scrapy.Spider):
                 for page_num in range(1, int(total_page) + 1):
                     url = response.url + str(page_num) + '/'
                     yield scrapy.Request(url, meta={'id_prefix': id_prefix, 'category': cate}, callback=self.parse)
-                    time.sleep(random.randint(1, 3))
+                    # time.sleep(random.randint(1, 3))
             else:
                 id_prefix = response.meta['id_prefix']
                 cate = response.meta['category']
