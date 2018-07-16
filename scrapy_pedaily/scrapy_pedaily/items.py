@@ -234,6 +234,45 @@ class PedailyCmScrapyItem(scrapy.Item):
     # 相关新闻
     related_news = scrapy.Field()
 
+class PedailyEnterScrapyItem(scrapy.Item):
+    # 编号
+    id = scrapy.Field()
+    # 名称
+    name = scrapy.Field()
+    # 图标
+    icon = scrapy.Field()
+    # 英文名
+    english_name = scrapy.Field()
+    # 标签
+    tag = scrapy.Field()
+    # 位置
+    location = scrapy.Field()
+    # 公司简述
+    cm_desc = scrapy.Field()
+    # 详情路径
+    url = scrapy.Field()
+
+    # 注册地址
+    reg_place = scrapy.Field()
+    # 成立时间
+    setup_time = scrapy.Field()
+    # 机构总部
+    headquarters = scrapy.Field()
+    #官方网站
+    office_website = scrapy.Field()
+    # 所属行业
+    industry_cate = scrapy.Field()
+    # 简介
+    short_detail = scrapy.Field()
+    # 联系方式
+    contact_info = scrapy.Field()
+    # 募集事件
+    ma_info = scrapy.Field()
+    # 投资事件
+    inv_info = scrapy.Field()
+    # 相关新闻
+    related_news = scrapy.Field()
+
 
 
 
