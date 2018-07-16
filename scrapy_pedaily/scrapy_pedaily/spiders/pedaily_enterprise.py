@@ -31,9 +31,9 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                     total_page = math.floor(int(total_page_desc) / 20) + int(math.fmod(int(total_page_desc), 20))
                     for pageNum in range(1, total_page + 1):
                         url = self.comapys_base_url.format(str(pageNum))
-                        print(url)
-                        # yield scrapy.Request(url, callback=self.parse)
-                        # time.sleep(random.randint(1, 6))
+                        # print(url)
+                        yield scrapy.Request(url, callback=self.parse)
+                        time.sleep(random.randint(1, 6))
                 else:
                     self.logger.warning("has no next page!!!")
             print('scan page list')
@@ -81,7 +81,7 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                 # 成立时间
                 item['setup_time'] = infos[2].css('li::text').extract_first()
                 # 所属行业
-                item['industry_cate'] = infos[3].css('li a::text').extract_first()
+                item['industry_cate'] = infos[3].css('li::text').extract_first()
                 # 官方网站
                 item['office_website'] = infos[4].css('li a::text').extract_first()
 
@@ -92,6 +92,6 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                     dd = dr.sub('', short_detail_desc)
                     # short_detail = dd
                     item['short_detail'] = dd
-                print(item)
+                # print(item)
 
-                # yield item
+                yield item
