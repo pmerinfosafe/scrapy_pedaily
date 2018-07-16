@@ -31,7 +31,7 @@ class PedailyEnterpriseSpider(scrapy.Spider):
                     total_page = math.floor(int(total_page_desc) / 20) + int(math.fmod(int(total_page_desc), 20))
                     for pageNum in range(1, total_page + 1):
                         url = self.comapys_base_url.format(str(pageNum))
-                        # print(url)
+                        print(url)
                         yield scrapy.Request(url, callback=self.parse)
                         time.sleep(random.randint(1, 3))
                 else:

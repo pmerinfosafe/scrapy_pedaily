@@ -273,6 +273,29 @@ class PedailyEnterScrapyItem(scrapy.Item):
     # 相关新闻
     related_news = scrapy.Field()
 
+class PedailyNewsScrapyItem(scrapy.Item):
+    # 编号
+    id = scrapy.Field()
+    # 标题
+    title = scrapy.Field()
+    # 工业ID
+    industryid = scrapy.Field()
+    # 标签
+    tag = scrapy.Field()
+    # 分类
+    category = scrapy.Field()
+    # 日期
+    date = scrapy.Field()
+    # 详情路径
+    url = scrapy.Field()
+    # 来源
+    source = scrapy.Field()
+    # 主题
+    subject = scrapy.Field()
+    # 机构总部
+    content = scrapy.Field()
+
+
 
 
 
