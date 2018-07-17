@@ -75,15 +75,30 @@ class PedailyEnterpriseSpider(scrapy.Spider):
             infos = response.css('div.info ul> li')
             if infos:
                 # 机构总部
-                item['headquarters'] = infos[0].css('li::text').extract_first()
+                if infos[0]:
+                    item['headquarters'] = infos[0].css('li::text').extract_first()
+                else:
+                    item['headquarters'] = ''
                 # 注册地址
-                item['reg_place'] = infos[1].css('li::text').extract_first()
+                if infos[1]:
+                    item['reg_place'] = infos[1].css('li::text').extract_first()
+                else:
+                    item['reg_place'] = ''
                 # 成立时间
-                item['setup_time'] = infos[2].css('li::text').extract_first()
+                if infos[2]:
+                    item['setup_time'] = infos[2].css('li::text').extract_first()
+                else:
+                    item['setup_time'] = ''
                 # 所属行业
-                item['industry_cate'] = infos[3].css('li::text').extract_first()
+                if infos[3]:
+                    item['industry_cate'] = infos[3].css('li::text').extract_first()
+                else:
+                    item['industry_cate'] = ''
                 # 官方网站
-                item['office_website'] = infos[4].css('li a::text').extract_first()
+                if len(infos) >= 5:
+                    item['office_website'] = infos[4].css('li a::text').extract_first()
+                else:
+                    item['office_website'] = ''
 
                 # 简介
                 short_detail_desc = response.css('div#desc').extract_first()

@@ -40,4 +40,11 @@ GREEN_ENERGY = 17
 # 制造业
 MANUFACTURING = 15
 
+# pedaily_news_pe 模块爬取页数配置
+# vcpe
+VCPE = 1331
+# 天使投资
+ANGEL_INVESTMENT = 73
+# 新三版
+NEW_THIRD_BOARD = 64
 
