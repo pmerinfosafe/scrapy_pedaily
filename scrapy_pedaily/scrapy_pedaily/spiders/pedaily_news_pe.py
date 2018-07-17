@@ -98,6 +98,6 @@ class PedailyNewsPeSpider(scrapy.Spider):
             else:
                 item['content'] = ''
 
-            print(item)
+            # print(item)
 
-            # yield item
+            yield item
