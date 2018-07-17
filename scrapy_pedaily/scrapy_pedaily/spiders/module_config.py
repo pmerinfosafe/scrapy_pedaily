@@ -3,3 +3,4 @@
 
 # pedaily_new 模块爬取页数配置
 INTERNET = 1005
+IT = 236

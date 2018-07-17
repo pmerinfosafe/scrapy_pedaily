@@ -8,7 +8,8 @@ from scrapy_pedaily.items import PedailyNewsScrapyItem
 import math
 
 from .module_config import (
-    INTERNET
+    INTERNET,
+    IT
 )
 
 
@@ -17,7 +18,8 @@ class PedailyNewSpider(scrapy.Spider):
     module_index = 7
     name = 'pedaily_new'
     allowed_domains = ['pedaily.cn']
-    start_urls = ['http://news.pedaily.cn/i-internet/']
+    start_urls = ['http://news.pedaily.cn/i-internet/',
+                  'http://news.pedaily.cn/i-it/']
     modules_index = {
         1: "互联网",
         2: "it",
@@ -29,16 +31,18 @@ class PedailyNewSpider(scrapy.Spider):
         8: "旅游",
         9: "教育培训"
     }
-    modules_page_num = [INTERNET]
+    modules_page_num = [INTERNET, IT]
     base_url = 'http://news.pedaily.cn'
 
     def parse(self, response):
         print("**********", response.url)
         if response.status == 200:
             if response.url in self.start_urls:
-                total_page = self.modules_page_num[self.start_urls.index(response.url)]
-                id_prefix = '8-7-' + str(int(self.start_urls.index(response.url)) + 1)
-                cate = self.modules_index.get(int(self.start_urls.index(response.url)) + 1)
+                # index = self.start_urls.index(response.url)
+                index = 1
+                total_page = self.modules_page_num[index]
+                id_prefix = '8-7-' + str(int(index) + 1)
+                cate = self.modules_index.get(int(index) + 1)
                 print(total_page, id_prefix, cate)
                 # for page_num in range(1, 2):
                 for page_num in range(1, int(total_page) + 1):
