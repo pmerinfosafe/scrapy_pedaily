@@ -48,3 +48,11 @@ ANGEL_INVESTMENT = 73
 # 新三版
 NEW_THIRD_BOARD = 64
 
+# iresearch爬取页数配置
+# 换联网+newa
+NEWS = 1000
+# 专栏column
+COLUMN = 1000
+# 创投 start
+START = 1000
+
