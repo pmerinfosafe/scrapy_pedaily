@@ -38,7 +38,7 @@ class PedailyNewsPeSpider(scrapy.Spider):
                 total_page = self.modules_page_num[index]
                 id_prefix = '8-8-' + str(int(index) + 1)
                 cate = self.modules_index.get(int(index) + 1)
-                print(total_page, id_prefix, cate)
+                # print(total_page, id_prefix, cate)
                 # for page_num in range(1, 2):
                 for page_num in range(1, int(total_page) + 1):
                     url = response.url + str(page_num) + '/'
@@ -56,7 +56,7 @@ class PedailyNewsPeSpider(scrapy.Spider):
                         tag = ','.join(tag_desc)
                     else:
                         tag = ''
-                    print(page_url, industryid, title, tag)
+                    # print(page_url, industryid, title, tag)
                     yield scrapy.Request(page_url, meta={'id_prefix': id_prefix,
                                                          'category': cate,
                                                          'industryid': industryid,

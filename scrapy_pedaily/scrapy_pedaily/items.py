@@ -295,6 +295,41 @@ class PedailyNewsScrapyItem(scrapy.Item):
     # 机构总部
     content = scrapy.Field()
 
+class IresearchNewsScrapyItem(scrapy.Item):
+    # 编号
+    id = scrapy.Field()
+    # 标题
+    title = scrapy.Field()
+    # 主题
+    subject = scrapy.Field()
+    # 标签
+    tag = scrapy.Field()
+    # 分类
+    category = scrapy.Field()
+    # 日期
+    publish_date = scrapy.Field()
+    # 详情路径
+    url = scrapy.Field()
+    # 来源
+    source = scrapy.Field()
+    # 主题
+    subject = scrapy.Field()
+    # 机构总部
+    content = scrapy.Field()
+    # 信息ID
+    info_id = scrapy.Field()
+    # 页面分类
+    page_sort = scrapy.Field()
+    # 模块名称
+    moudle_name = scrapy.Field()
+    # 来源
+    source = scrapy.Field()
+    # 作者
+    author = scrapy.Field()
+    # 内容
+    content = scrapy.Field()
+
+
 
 
 

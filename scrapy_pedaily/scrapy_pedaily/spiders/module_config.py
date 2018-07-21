@@ -50,9 +50,9 @@ NEW_THIRD_BOARD = 64
 
 # iresearch爬取页数配置
 # 换联网+newa
-NEWS = 1000
+NEWS = 5
 # 专栏column
-COLUMN = 1000
+COLUMN = 5
 # 创投 start
-START = 1000
+START = 5
 

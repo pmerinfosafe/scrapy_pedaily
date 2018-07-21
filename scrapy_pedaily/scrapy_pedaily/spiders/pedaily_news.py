@@ -24,7 +24,6 @@ from .module_config import (
 
 )
 
-
 class PedailyNewSpider(scrapy.Spider):
     index = 8
     module_index = 7
