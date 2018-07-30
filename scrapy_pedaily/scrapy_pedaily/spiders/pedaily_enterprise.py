@@ -7,7 +7,7 @@ import hashlib
 from scrapy_pedaily.items import PedailyEnterScrapyItem
 import math
 
-
+# 企业库
 class PedailyEnterpriseSpider(scrapy.Spider):
     index = 8
     module_index = 6

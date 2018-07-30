@@ -23,7 +23,7 @@ from .module_config import (
     US_STOCKS, A_STOCKS, ASSET_MANAGEMENT, AGRICULTURE, GREEN_ENERGY, MANUFACTURING
 
 )
-
+# 产业
 class PedailyNewSpider(scrapy.Spider):
     index = 8
     module_index = 7

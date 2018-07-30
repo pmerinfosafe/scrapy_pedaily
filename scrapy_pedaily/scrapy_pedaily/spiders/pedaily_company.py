@@ -7,7 +7,7 @@ import hashlib
 from scrapy_pedaily.items import PedailyCmScrapyItem
 import math
 
-
+# 投资机构
 class PedailyCompanySpider(scrapy.Spider):
     index = 8
     module_index = 5
@@ -71,6 +71,7 @@ class PedailyCompanySpider(scrapy.Spider):
             item['tag'] = response.meta['tag']
             item['location'] = response.meta['location']
             item['cm_desc'] = response.meta['cm_desc']
+            #id,name,url,icon,tag,location,cm_desc,capital_type,org_nature,reg_place,setup_time,headquarters,office_website,investment_stage,short_detail
             # 详情页解析
             infos = response.css('div.info ul> li')
             if infos:
@@ -91,6 +92,7 @@ class PedailyCompanySpider(scrapy.Spider):
                 item['investment_stage'] = infos[6].css('li a::text').extract_first()
                 # 简介
                 short_detail_desc = response.css('div#desc').extract_first()
+                item['short_detail'] = ''
                 if short_detail_desc:
                     dr = re.compile(r'<[^>]+>', re.S)
                     dd = dr.sub('', short_detail_desc)

@@ -99,5 +99,6 @@ class PedailyNewsPeSpider(scrapy.Spider):
                 item['content'] = ''
 
             # print(item)
+            # url,industryid,tag,title,category,date,source,subject,content
 
             yield item
