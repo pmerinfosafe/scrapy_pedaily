@@ -45,8 +45,8 @@ class IresearchSpider(scrapy.Spider):
     def parse(self, response):
         if response.url in self.start_urls:
             index = self.start_urls.index(response.url)
-            if index != 0:
-                return
+            # if index != 0:
+            #     return
             total_page = self.modules_page_num[index]
             id_prefix = '36-' + str(int(index) + 1)
             moudle_name = self.modules_index_map.get(int(index) + 1)
